@@ -1,0 +1,56 @@
+全局考虑：
+大小写的敏感；
+空格输入多等于一，换行相当于空格
+
+CREATE
+crEatE students NAME STRING 01 CLASS INT 00 ID STrING 11;//不敏感的输入
+CREATE STUDENT-S""  CLASS-ID STRING 01 "NAME" STRING 00;//表名、字段名称中特殊符号不包括空格和回车
+CREATE STUDENTS;//暂时没写明字段信息
+
+DROOP
+droop students
+;//只需要考虑大小写敏感和分行
+
+ADD
+ADD STUDENT STUDENT-ID 
+STRING 11;//考虑字段中的特殊符号
+aDD STUDENT NAME 
+STRING 00;//只需要考虑大小写，只考虑添加一个字段
+
+CANCLE
+CANCLE STUDENT NAME SCORE 
+CLASS;//只需要考虑大小写以及字段是否存在
+
+WHERE
+WHERE NAME!="NIKE" AND SEX!="BOY"  AND  AGE>"90" OR
+AGE<"30" and SEX="女" ;//常量需要加双引号 and or 不敏感 
+WHEre STUDENT-ID="0001" OR STUDNET-ID<"9990" OR 
+CLASS="08311401" AND SEX="男";//不支持一个判断条件之中加空格等
+WHere NAME="MIKE JACK" OR NICKNAME="\"monkey\"";//支持在常量内容中输入空格和双引号（用转义字符）
+where STUDENTID>="0008" AND STUDENTID!="0009" AND STUDENTID<"0011";//对各种逻辑符号><=以及他们的组合和 !=进行判断
+
+INSERT
+INSERT STUDENT NAME AGE BIRTHDAY
+VAluES "金金" “19”"199610";//讲真没设计什么特殊处理
+假如有一个名字为STUDENT的表包含NAME STRING 11,AGE INT 01, BIRTHDAY DATE 00三个字段可以存在以下语句
+INSERT STUDENT
+VALUES "金金" “19”"199610";//默认为所有的字段都将被输入
+
+UPDATE
+UPDATE STUDENT CLASS="08311401"
+WHERE STUDENTID>"0000" AND STUDENTID<"0019";//字段名称可以存在-
+UPDATE STUDENT SEX="BOY"
+;//对表中所有记录的某个字段进行更新
+
+DELETE
+DELETE STUDENT WHERE NAME="NIKE-PAUL" AND 
+SEX="BOY";//格式处理无特殊用例
+
+SELECT
+SELECT STUDENT NAME AGE
+where SEX="BOY"
+ORDRER BY AGE DESC STUDENT-ID ASC
+ALL;//注意处理就好 完全格式杀
+SELecT STUDENT  * * *;//全部显示
+select STUDENT NAME AGE TOP 10;//显示前十条记录中的NAME AGE字段内容
+select STUDENT NAME AGE;显示所有记录的NAME AGE字段内容
